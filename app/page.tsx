@@ -2,7 +2,7 @@
 
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 
 const convertFilesToDataURLs = async (files: FileList) => {
@@ -38,12 +38,6 @@ const Chat = () => {
             api: '/api/chat',
         }),
     })
-
-    useEffect(() => {
-        console.log("*** Chat ***")
-        console.log(`    ${messages.length} message${messages.length !== 1 ? 's' : ''}`)
-        console.log(`    ${files?.length ?? 0} file${(files && files.length !== 1) ? 's' : ''}`)
-    }, [messages, files])
 
     return (
         <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
