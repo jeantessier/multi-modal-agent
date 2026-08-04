@@ -3,15 +3,15 @@ import { streamText, convertToModelMessages, createUIMessageStreamResponse, toUI
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 
-export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json()
+export const POST = async (req: Request) => {
+    const { messages }: { messages: UIMessage[] } = await req.json()
 
-  const result = streamText({
-    model: 'openai/gpt-4o',
-    messages: await convertToModelMessages(messages),
-  })
+    const result = streamText({
+        model: 'openai/gpt-4o',
+        messages: await convertToModelMessages(messages),
+    })
 
-  return createUIMessageStreamResponse({
-    stream: toUIMessageStream({ stream: result.stream }),
-  })
+    return createUIMessageStreamResponse({
+        stream: toUIMessageStream({ stream: result.stream }),
+    })
 }
